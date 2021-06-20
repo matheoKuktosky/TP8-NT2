@@ -4,29 +4,19 @@
     <div class="jumbotron">
       <h2>Componente Http</h2>
       <hr>   
-      <button class="btn btn-success my-3 mr-3" @click="getPostsAxios()">GET with AXIOS</button>    
+      <button class="btn btn-success my-3 mr-3" @click="getUsersAxios()">GET with AXIOS</button>    
 
 
-      <div v-if="posts.length" class="table-responsive">
+      <div v-if="$store.state.usuarios.length" class="table-responsive">
         <table class="table table-dark">
-          <!-- encabezado de la tabla -->
           <tr>
             <th v-for="(col,index) in getCols" :key="index">{{col}}</th>
-            <!-- <th>userId</th>
-            <th>id</th>
-            <th>title</th>
-            <th>body</th> -->
           </tr>
-          <!-- filas con los datos -->
-          <tr v-for="(post,index) in posts" :key="index">
-            <td v-for="(col,index) in getCols" :key="index">{{post[col]}}</td>
-            <!-- <td>{{post.userId}}</td>
-            <td>{{post.id}}</td>
-            <td>{{post.title}}</td>
-            <td>{{post.body}}</td> -->
+          <tr v-for="(user,index) in $store.state.usuarios" :key="index">
+            <td v-for="(col,index) in getCols" :key="index">{{user[col]}}</td>
           </tr>
         </table>
-        <h4 class="alert alert-primary">Se encontraron {{posts.length}} datos</h4>
+        <h4 class="alert alert-primary">Se encontraron {{$store.state.usuarios.length}} datos</h4>
       </div>
       <h4 v-else class="alert alert-danger">No se encontraron datos</h4>
 
@@ -44,17 +34,15 @@
 
     },
     data () {
-      return {
-        url: 'https://60afff581f26610017ffdad9.mockapi.io/usuarios',
-        posts : []
-        
+      return {        
       }
     },
     methods: {
 
       /* ------ AJAX: AXIOS ------ */
-      getPostsAxios() {
-          this.axios(this.url)
+      getUsersAxios() {
+        this.$store.dispatch('getUsuarios')
+          /*this.axios(this.url)
           .then( respuesta => {
             console.log('AXIOS', respuesta.data)
             this.posts = respuesta.data
@@ -62,13 +50,13 @@
               alert('No hay usuarios disponibles!')
             }
           })
-          .catch(error => console.error(error))
+          .catch(error => console.error(error))*/
       }
 
     },
     computed: {
       getCols() {
-        return Object.keys(this.posts[0])
+        return Object.keys(this.$store.state.usuarios[0])
       }
     }
 }

@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="container-fluid mt-3">
     <div class="jumbotron">
-      <h1>TP6 - Matheo Kuktosky</h1>
+      <h1>TP8 - Matheo Kuktosky</h1>
       <br>
 
       <Navbar />
